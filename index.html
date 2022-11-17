@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Random Color Generator</title>
+  </head>
+  <body class="bg-slate-900">
+    <div class="h-screen grid place-items-center text-center">
+      <div
+        class="bg-white w-11/12 md:w-6/12 p-10 rounded-lg flex flex-col justify-center items-center border-2 border-blue-500"
+      >
+        <div class="flex flex-col justify-center items-center">
+          <h1 class="text-4xl font-bold text-gray-800">Random Color Generator</h1>
+          <p class="text-gray-800 mt-4">Generate random colors and copy them to your clipboard</p>
+          <button id="btn" class="bg-gray-800 text-white p-2 rounded my-4">
+            Generate
+        </div>
+        <div class="flex flex-col justify-center items-center">
+          <h2 id="color" class="text-md font-semibold text-red-700"></h2>
+          <div id="colorBoxes" class="grid grid-cols-4 gap-4"></div>
+          </div>
+      </div>
+      <footer class="text-gray-200 text-xs mt-4">
+        Made with ❤️ by <a href="https://github.com/sauravhathi" class="text-blue-500">Saurav Hathi</a>
+      </footer>
+    </div>
+  </body>
+
+  <script>
+    const btn = document.getElementById("btn");
+    const colorName = document.getElementById("colorName");
+    const colorBoxes = document.getElementById("colorBoxes");
+
+    // RGB to HEX
+    function rgbToHex(rgb) {
+      let hex = Number(rgb).toString(16);
+      if (hex.length < 2) {
+        hex = "0" + hex;
+      }
+      return hex;
+    }
+
+    // Generate random color
+    const randomColor = () => {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+
+      const red = rgbToHex(r);
+      const green = rgbToHex(g);
+      const blue = rgbToHex(b);
+
+      const hex = "#" + red + green + blue;
+
+      return hex;
+    };
+
+    // random color generator
+    const randomColorGenerator = () => {
+
+      clr();
+
+      for (let i = 1; i <= 16; i++) {
+        const color = randomColor();
+        const colorBox = document.createElement("div");
+        colorBox.classList.add("w-20", "h-20", "rounded", "m-2");
+        // add  onclick event to each color box for copy color
+        colorBox.setAttribute("onclick", `copyColor('${color}')`);
+        colorBox.style.backgroundColor = color;
+        colorBoxes.appendChild(colorBox);
+
+      }
+
+    };
+
+    // button click event
+    btn.addEventListener("click", randomColorGenerator);
+
+    // random color generator
+    randomColorGenerator();
+
+    // copy color to clipboard
+    const copyColor = (color) => {
+      const el = document.createElement("textarea");
+      const colorName = document.getElementById("color");
+      el.value = color;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+
+      // copied tag show and hide
+      colorName.innerText = `copied: ${color}`;
+      setTimeout(() => {
+        colorName.innerText = "";
+      }, 2000);
+    };
+
+    // clear color boxes
+    function clr() {
+      colorBoxes.innerHTML = "";
+    }
+
+
+  </script>
+</html>
