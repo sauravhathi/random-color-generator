@@ -2,6 +2,8 @@
 
 This is a random color generator project. You can generate random colors and copy them to your clipboard. using HTML, CSS, and JavaScript.
 
+<a href="https://www.buymeacoffee.com/sauravhathi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 ## Demo
 
 ### https://sauravhathi.github.io/random-color-generator/
